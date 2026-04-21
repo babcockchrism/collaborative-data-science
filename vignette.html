@@ -67,14 +67,25 @@ ul.task-list li input[type="checkbox"] {
 <section id="principal-component-analysis" class="level1">
 <h1>Principal Component Analysis</h1>
 <p>Principal component analysis is a dimension-reduction data analysis method whose overall goal is to take several numeric variables and simplify the data into a table of uncorrelated “principal components” that each explain a portion of the dataset’s total variance.</p>
-<p><code>pca(data, eigen_opt = NA, threshold = 85)</code> conducts this analysis on a data frame and outputs a matrix containing the principal components for each observation (<code>pca(~)$pca</code>). It also produces a number of other useful data, including the optimal number of principal components to use in your analysis (<code>pca(~)$pca&lt;&gt;), the list of eigenvalues, the eigenvector matrix, the covariance matrix, a matrix of the transformed dataset used to determine the covariance matrix, and the mean and standard deviation of each of the dataset’s factors.</code></p><code>
+<p><code>pca(data, eigen_opt = NA, threshold = 85)</code> conducts this analysis on a data frame and outputs a matrix containing the principal component values for each observation (<code>pca(~)$pca</code>). It also produces a number of other useful data, including the optimal number of principal components to use in your analysis (<code>pca(~)$optimal_number_of_principal_components</code>), the matrix of eigenvalues (<code>pca(~)$eigen_values</code>), the eigenvector matrix (<code>pca(~)$eigen_vectors</code>), the covariance matrix (<code>pca(~)$covariance_matrix</code>), a matrix of the transformed dataset used to determine the covariance matrix (<code>pca(~)$transformed_data</code>), and the mean and standard deviation of each of the dataset’s factors (<code>pca(~)$standardized_values</code>).</p>
+<p><code>eigen_opt</code> determines the number of principal components to use in the analysis. If left blank, this value defaults to the “optimal” number of principal components to use for analysis (that is, the minimum number of principal components needed to explain the “threshold” percent of variance in the dataset). If not left blank, <code>pca(~)$optimal_number_of_principal_components</code> simply outputs <code>eigen_opt</code>.</p>
+<p><code>threshold</code> determines the amount of variance needed to be explained by the principal components in order to find the optimal number to use for analysis. The default is 85%.</p>
 <section id="scree-plot" class="level2">
 <h2 class="anchored" data-anchor-id="scree-plot">Scree Plot</h2>
-<p>This function takes the matrix of eigenvalues from</p>
+<p><code>scree_plot(eigen_values, threshold = 85, y_axis = “Eigenvalue”)</code> takes the matrix of eigenvalues from a principal component analysis dataset (<code>pca(~)$eigen_values</code>) and generates a “scree plot” (<code>scree_plot(~)$plot</code>) of principal component vs its respective eigenvalue (<code>pca(~)$eigen_values</code>). It then determines the “optimal” number of principal components to use for analysis (that is, the minimum number of principal components needed to explain the “threshold” percent of variance in the dataset). It also outputs this “optimal” number of components (<code>pca(~)$optimal_number_of_components</code>) and a matrix of the percentage of variance each principal component explains (<code>pca(~)$percentage_of_variance_explained</code>).</p>
+<p><code>threshold</code> determines the amount of variance needed to be explained by the principal components in order to find the optimal number to use for analysis. The default is 85%.</p>
+<p><code>y-axis</code> determines what is shown on the y axis of the scree plot (<code>scree_plot(~)$plot</code>). The default is “Eigenvalue”, which just shows each component’s eigenvalue, but “Percentage” can also be chosen to graph the percentage of variance each component explains instead.</p>
 </section>
-</code></section><code>
+<section id="cluster-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-analysis">Cluster Analysis</h2>
+<p><code>cluster_analysis(pca, num_clusters = NA, max_clusters = 10, x = “PC1”, y = “PC2”, nstart = 10)</code> takes the matrix of principal component values and uses kmeans clustering to segregate them into clusters. It outputs a list of which cluster each observation belongs to (<code>cluster_analysis(~)$cluster_values</code>), the “optimal” number of clusters to segregate the data using the “elbow” method (that is, the smallest number of clusters that results in a local minimum for the total within-cluster sum of squares) (<code>cluster_analysis(~)$optimal_number_of_clusters</code>), the “quality” for the number of clusters selected (percentage value equal to the between-cluster sum of squares divided by the total within-cluster sum of squares) (defaults to the “optimal” number of clusters) ((<code>cluster_analysis(~)$quality</code>)), a plot of the number of clusters vs each respective total within-cluster sum of squares (with a red line indicating the “optimal” number of clusters) (<code>cluster_analysis(~)$optimal_cluster_plot</code>), and a 2-dimensional scatterplot of all observations and their respective principal component values with each point colored according to its respective cluster (<code>cluster_analysis(~)$pca_scatterplot</code>).</p>
+<p><code>num_clusters</code> determines the number of clusters to be used in kmeans clustering. If left blank, it defaults to the “optimal” number of clusters.</p>
+<p><code>max_clusters</code> determines the maximum number of clusters to be used to determine the “optimal” number of clusters. The default is 10.</p>
+<p><code>x</code> and <code>y</code> determine the x and y axes of the 2-dimensional scatterplot. If left blank, it defaults to the first two principal components.</p>
+</section>
+</section>
 
-</code></main><code>
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -476,9 +487,9 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
-</code></div><code> <!-- /content -->
+</div> <!-- /content -->
 
 
 
 
-</code></body></html>
+</body></html>
