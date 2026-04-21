@@ -44,7 +44,7 @@ scree_plot <- function(eigen_values, threshold = 85, y_axis = "Eigenvalue") { # 
 ```
 
 ``` {r}
-pca <- function(data, eigen_opt = NA) { # conducts principal component analysis
+pca <- function(data, eigen_opt = NA, threshold = 85) { # conducts principal component analysis
   std <- data[0, sapply(iris, is.numeric)] # exclude non-numeric properties from analysis
   for(i in colnames(std)) { # standardized values for each factor
     std[1, i] <- mean(as.numeric(data[, i]))
@@ -62,8 +62,8 @@ pca <- function(data, eigen_opt = NA) { # conducts principal component analysis
     }
   }
   eigen <- eigen(data.matrix(cov)) # generate eigenvectors and eigenvalues from the covariance matrix
-  if(is.na(eigen_opt)) {
-    eigen_opt <- scree_plot(eigen$values)$optimal_number_of_components
+  if(is.na(eigen_opt)) { # if the desired number of principal components is not specified, this will be determined by the "optimal" number of principal components based on "threshold" (that is, what is the minimum number of principal components needed to explain "threshold" % of the dataset ("threshold" default is 85%))
+    eigen_opt <- scree_plot(eigen$values, threshold = threshold)$optimal_number_of_components
   }
   pca <- as.matrix(trns[, sapply(trns, is.numeric)]) %*% eigen$vectors[, 1:eigen_opt] # conduct a matrix mutiplication to transform the original data into principal components
   columns <- c()

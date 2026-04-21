@@ -1,0 +1,28 @@
+---
+title: "Principal Component Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Principal Component Analysis}
+  %\VignetteEngine{knitr::markdown}
+  \usepackage[utf8]{inputenc}
+---
+
+# Principal Component Analysis
+
+Principal component analysis is a dimension-reduction data analysis method whose overall goal is to take several numeric variables and simplify the data into a table of uncorrelated "principal components" that each explain a portion of the dataset's total variance.
+
+<code>pca(data, eigen_opt = NA, threshold = 85)</code> conducts this analysis on a data frame and outputs a matrix containing the principal components for each observation (<code>pca(\~)\$pca</code>). It also produces a number of other useful data, including the optimal number of principal components to use in your analysis (<code>pca(\~)\$optimal_number_of_principal_components</code>), the matrix of eigenvalues (<code>pca(\~)\$eigen_values</code>), the eigenvector matrix (<code>pca(\~)\$eigen_vectors</code>), the covariance matrix (<code>pca(\~)\$covariance_matrix</code>), a matrix of the transformed dataset used to determine the covariance matrix (<code>pca(\~)\$transformed_data</code>), and the mean and standard deviation of each of the dataset's factors (<code>pca(\~)\$standardized_values</code>).
+
+<code>eigen_opt</code> determines the number of principal components to use in the analysis. If left blank, this value defaults to the "optimal" number of principal components to use for analysis (that is, the minimum number of principal components needed to explain the "threshold" percent of variance in the dataset). If not left blank, <code>pca(\~)\$optimal_number_of_principal_components</code> simply outputs <code>eigen_opt</code>.
+
+<code>threshold</code> determines the amount of variance needed to be explained by the principal components in order to find the optimal number to use for analysis. The default is 85%.
+
+## Scree Plot
+
+<code>scree_plot(eigen_values, threshold = 85, y_axis = "Eigenvalue")</code> takes the matrix of eigenvalues from a principal component analysis dataset (<code>pca(\~)\$pca</code>) and generates a "scree plot" (<code>scree_plot(\~)\$plot</code>) of principal component vs its respective eigenvalue (<code>pca(\~)\$eigen_values</code>). It then determines the "optimal" number of principal components to use for analysis (that is, the minimum number of principal components needed to explain the "threshold" percent of variance in the dataset). It also outputs this "optimal" number of components (<code>pca(\~)\$optimal_number_of_components</code>) and a matrix of the percentage of variance each principal component explains (<code>pca(\~)\$percentage_of_variance_explained</code>).
+
+<code>threshold</code> determines the amount of variance needed to be explained by the principal components in order to find the optimal number to use for analysis. The default is 85%.
+
+<code>y-axis</>
+
+
