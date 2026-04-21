@@ -1,0 +1,31 @@
+---
+title: "test"
+format: html
+---
+
+``` {r}
+d <- data.frame(readxl::read_excel("C:/Users/chris/Documents/Repos/collaborative-data-science/data/03202026_LE18_Camk2A_IP_01.xlsx", sheet = "Proteins"), na.rm = TRUE)
+library(dplyr)
+library(tidyverse)
+d <- na.omit(d)
+```
+
+``` {r}
+p <- pca(d)
+p
+```
+
+``` {r}
+s <- scree_plot(p$eigen_values, threshold = 85, y_axis = "Percentage")
+s
+```
+
+``` {r}
+c <- cluster_analysis(p, num_clusters= 5, nstart = 5)
+c
+```
+
+``` {r}
+d <- d %>%
+  mutate(cluster = c$cluster_values)
+```

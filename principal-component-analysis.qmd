@@ -5,11 +5,11 @@ editor: visual
 ---
 
 ``` {r}
-library(dplyr)
+#library(dplyr)
 library(ggplot2)
-iris <- read.csv("data/Iris.csv") %>%
-  select(-Id) # example dataset
-detach("package:dplyr", unload = TRUE)
+#iris <- read.csv("data/Iris.csv") %>%
+ # select(-Id) # example dataset
+#detach("package:dplyr", unload = TRUE)
 ```
 
 ``` {r}
@@ -46,13 +46,13 @@ scree_plot <- function(eigen_values, threshold = 85, y_axis = "Eigenvalue") { # 
 
 ``` {r}
 pca <- function(data, eigen_opt = NA, threshold = 85) { # conducts principal component analysis
-  std <- data[0, sapply(iris, is.numeric)] # exclude non-numeric properties from analysis
+  std <- data[0, sapply(data, is.numeric)] # exclude non-numeric properties from analysis
   for(i in colnames(std)) { # standardized values for each factor
     std[1, i] <- mean(as.numeric(data[, i]))
     std[2, i] <- sd(as.numeric(data[, i]))
   }
   rownames(std) <- c("mean", "sd")
-  trns <- data[, sapply(iris, is.numeric)] # transform (AKA standardize) data so that each factor has a mean of 0 and a variance of 1
+  trns <- data[, sapply(data, is.numeric)] # transform (AKA standardize) data so that each factor has a mean of 0 and a variance of 1
   for(i in colnames(std)){
     trns[, i] <- (data[, i] - std[1, i])/std[2, i]
   }
