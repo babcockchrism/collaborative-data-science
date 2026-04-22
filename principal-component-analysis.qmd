@@ -129,7 +129,7 @@ testplot$percentage_of_variance_explained
 cluster_analysis <- function(pca, num_clusters = NA, max_clusters = 10, x = "PC1", y = "PC2", nstart = 10) { # segregates points from the principal component analysis into different clusters using kmeans clustering
   twss <- c()
   for(i in 1:max_clusters) { # generates values for the total within-cluster sum of squares; important for this method of determining "optimal" number of clusters
-    twss <- append(twss, kmeans(pca$pca, centers = i, nstart = nstart)$tot.withinss)
+    twss <- append(twss, kmeans(pca, centers = i, nstart = nstart)$tot.withinss)
   }
   clust_coords <- data.frame(1:max_clusters, twss)
   clust_opt <- 1
@@ -139,7 +139,7 @@ cluster_analysis <- function(pca, num_clusters = NA, max_clusters = 10, x = "PC1
   if(is.na(num_clusters)) { # if no desired number of clusters is given, it defaults to the "optimal" number of clusters
     num_clusters <- clust_opt
   }
-  kmeans <- kmeans(pca$pca, centers = num_clusters, nstart = nstart)
+  kmeans <- kmeans(pca, centers = num_clusters, nstart = nstart)
   cluster_values <- kmeans$cluster
   qual <- 100 * kmeans$betweenss / kmeans$totss
   cluster_determine <- ggplot2::ggplot(data = clust_coords, aes(x = clust_coords[, 1], y = clust_coords[, 2])) +
@@ -149,7 +149,7 @@ cluster_analysis <- function(pca, num_clusters = NA, max_clusters = 10, x = "PC1
     ggplot2::ylab("Total Within Sum of Squares") +
     ggplot2::geom_vline(xintercept = clust_opt, col = "red") +
     ggplot2::theme(panel.border = element_rect(colour = "black"))
-  cluster_scatter <- ggplot2::ggplot(data = pca$pca, aes(x = pca$pca[, x], y = pca$pca[, y], color = cluster_values)) +
+  cluster_scatter <- ggplot2::ggplot(data = pca, aes(x = pca[, x], y = pca[, y], color = cluster_values)) +
     ggplot2::geom_point() +
     ggplot2::xlab(x) +
     ggplot2::ylab(y) +
@@ -161,7 +161,7 @@ cluster_analysis <- function(pca, num_clusters = NA, max_clusters = 10, x = "PC1
 ```
 
 ``` {r}
-testclust <- cluster_analysis(test)
+testclust <- cluster_analysis(test$pca)
 testclust$cluster_values
 ```
 
@@ -182,7 +182,7 @@ testclust$pca_scatterplot
 ```
 
 ``` {r}
-testclust2 <- cluster_analysis(test, num_clusters = 2, nstart = 1)
+testclust2 <- cluster_analysis(test$pca, num_clusters = 2, nstart = 1)
 testclust2$cluster_values
 ```
 

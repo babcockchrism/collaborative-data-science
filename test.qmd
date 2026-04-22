@@ -4,7 +4,7 @@ format: html
 ---
 
 ``` {r}
-d <- data.frame(readxl::read_excel("C:/Users/chris/Documents/Repos/collaborative-data-science/data/03202026_LE18_Camk2A_IP_01.xlsx", sheet = "Proteins"), na.rm = TRUE)
+d <- data.frame(readxl::read_excel("~/collaborative-data-science/data/03202026_LE18_Camk2A_IP_01.xlsx", sheet = "Proteins"), na.rm = TRUE)
 library(dplyr)
 library(tidyverse)
 d <- na.omit(d)
@@ -21,7 +21,7 @@ s
 ```
 
 ``` {r}
-c <- cluster_analysis(p, num_clusters= 5, nstart = 5)
+c <- cluster_analysis(p$pca, num_clusters= 5, nstart = 5)
 c
 ```
 

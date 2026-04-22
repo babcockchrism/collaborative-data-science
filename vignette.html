@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Principal Component Analysis</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -26,15 +29,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="vignette_files/libs/clipboard/clipboard.min.js"></script>
 <script src="vignette_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="vignette_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="vignette_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="vignette_files/libs/quarto-html/popper.min.js"></script>
 <script src="vignette_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="vignette_files/libs/quarto-html/anchor.min.js"></script>
 <link href="vignette_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="vignette_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="vignette_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="vignette_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="vignette_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="vignette_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="vignette_files/libs/bootstrap/bootstrap-efbb37e9afcc02144ebbc7afd12a776f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -64,11 +66,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="principal-component-analysis" class="level1">
-<h1>Principal Component Analysis</h1>
 <p>Principal component analysis is a dimension-reduction data analysis method whose overall goal is to take several numeric variables and simplify the data into a table of uncorrelated “principal components” that each explain a portion of the dataset’s total variance.</p>
 <p><code>pca(data, eigen_opt = NA, threshold = 85)</code> conducts this analysis on a data frame and outputs a matrix containing the principal component values for each observation (<code>pca(~)$pca</code>). It also produces a number of other useful data, including the optimal number of principal components to use in your analysis (<code>pca(~)$optimal_number_of_principal_components</code>), the matrix of eigenvalues (<code>pca(~)$eigen_values</code>), the eigenvector matrix (<code>pca(~)$eigen_vectors</code>), the covariance matrix (<code>pca(~)$covariance_matrix</code>), a matrix of the transformed dataset used to determine the covariance matrix (<code>pca(~)$transformed_data</code>), and the mean and standard deviation of each of the dataset’s factors (<code>pca(~)$standardized_values</code>).</p>
-<p><code>eigen_opt</code> determines the number of principal components to use in the analysis. If left blank, this value defaults to the “optimal” number of principal components to use for analysis (that is, the minimum number of principal components needed to explain the “threshold” percent of variance in the dataset). If not left blank, <code>pca(~)$optimal_number_of_principal_components</code> simply outputs <code>eigen_opt</code>.</p>
+<p><code>eigen_opt</code> determines the number of principal components to use in the analysis. If left blank, this value defaults to the “optimal” number of principal components to use for analysis (that is, the minimum number of principal components needed to explain the “threshold” percent of variance in the dataset). If <em>not</em> left blank, <code>pca(~)$optimal_number_of_principal_components</code> simply outputs <code>eigen_opt</code>.</p>
 <p><code>threshold</code> determines the amount of variance needed to be explained by the principal components in order to find the optimal number to use for analysis. The default is 85%.</p>
 <section id="scree-plot" class="level2">
 <h2 class="anchored" data-anchor-id="scree-plot">Scree Plot</h2>
@@ -82,7 +82,6 @@ ul.task-list li input[type="checkbox"] {
 <p><code>num_clusters</code> determines the number of clusters to be used in kmeans clustering. If left blank, it defaults to the “optimal” number of clusters.</p>
 <p><code>max_clusters</code> determines the maximum number of clusters to be used to determine the “optimal” number of clusters. The default is 10.</p>
 <p><code>x</code> and <code>y</code> determine the x and y axes of the 2-dimensional scatterplot. If left blank, it defaults to the first two principal components.</p>
-</section>
 </section>
 
 </main>
